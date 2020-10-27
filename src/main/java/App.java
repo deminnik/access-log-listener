@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class App
@@ -31,19 +33,25 @@ public class App
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             String line;
+            int commonCounter = 0;
+            int badCounter = 0;
+            List<Record> records = new LinkedList<Record>();
             while ((line = reader.readLine()) != null) {
+                commonCounter++;
                 Pattern pattern = Pattern.compile(" ");
                 String[] words = pattern.split(line);
-                System.out.println(isNotAccessable(words[8],
+                if (isNotAccessible(words[8],
                         Double.parseDouble(words[10]),
-                        Double.parseDouble(cmd.getOptionValue("t"))));
+                        Double.parseDouble(cmd.getOptionValue("t")))) badCounter++;
+                double accessible = ((double) badCounter / commonCounter) * 100;
+                if (accessible < Double.parseDouble(cmd.getOptionValue("u"))) records.add(new Record(accessible));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static boolean isNotAccessable(String code, double time, double minTime) {
+    private static boolean isNotAccessible(String code, double time, double minTime) {
         boolean flag = false;
         Pattern pattern = Pattern.compile("5\\d\\d");
         if (pattern.matcher(code).find()) flag = true;
