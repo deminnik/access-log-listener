@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.util.regex.Pattern;
+
 public class App
 {
     public static void main( String[] args )
@@ -35,7 +37,10 @@ public class App
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
-            System.out.println(reader.readLine());
+            Pattern pattern = Pattern.compile(" ");
+            String[] words = pattern.split(reader.readLine());
+            System.out.println(words[8]);
+            System.out.println(words[10]);
         } catch (IOException e) {
             e.printStackTrace();
         }
