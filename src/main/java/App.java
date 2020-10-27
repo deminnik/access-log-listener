@@ -39,10 +39,19 @@ public class App
         try {
             Pattern pattern = Pattern.compile(" ");
             String[] words = pattern.split(reader.readLine());
-            System.out.println(words[8]);
-            System.out.println(words[10]);
+            System.out.println(isNotAccessable(words[8],
+                    Double.parseDouble(words[10]),
+                    Double.parseDouble(cmd.getOptionValue("t"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isNotAccessable(String code, double time, double minTime) {
+        boolean flag = false;
+        Pattern pattern = Pattern.compile("5\\d\\d");
+        if (pattern.matcher(code).find()) flag = true;
+        else if (time > minTime) flag = true;
+        return flag;
     }
 }
