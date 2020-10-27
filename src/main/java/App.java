@@ -5,7 +5,14 @@ public class App
     public static void main( String[] args )
     {
         Options options = new Options();
-        options.addOption("p", "print", true, "Print");
+        options.addOption("u",
+                "access",
+                true,
+                "Минимально допустимый уровень доступности (проценты. Например, \"99.9\")");
+        options.addRequiredOption("t",
+                "time",
+                true,
+                "Приемлемое время ответа (миллисекунды. Например, \"45\")");
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = null;
@@ -15,8 +22,11 @@ public class App
             e.printStackTrace();
         }
 
-        if (cmd != null && cmd.hasOption("p")) {
-            System.out.println(cmd.getOptionValue("p"));
+        if (cmd != null && cmd.hasOption("u")) {
+            System.out.println(cmd.getOptionValue("u"));
+        }
+        if (cmd != null && cmd.hasOption("t")) {
+            System.out.println(cmd.getOptionValue("t"));
         }
     }
 }
