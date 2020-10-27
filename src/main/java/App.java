@@ -28,20 +28,16 @@ public class App
             e.printStackTrace();
         }
 
-        if (cmd != null && cmd.hasOption("u")) {
-            System.out.println(cmd.getOptionValue("u"));
-        }
-        if (cmd != null && cmd.hasOption("t")) {
-            System.out.println(cmd.getOptionValue("t"));
-        }
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
-            Pattern pattern = Pattern.compile(" ");
-            String[] words = pattern.split(reader.readLine());
-            System.out.println(isNotAccessable(words[8],
-                    Double.parseDouble(words[10]),
-                    Double.parseDouble(cmd.getOptionValue("t"))));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Pattern pattern = Pattern.compile(" ");
+                String[] words = pattern.split(line);
+                System.out.println(isNotAccessable(words[8],
+                        Double.parseDouble(words[10]),
+                        Double.parseDouble(cmd.getOptionValue("t"))));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
