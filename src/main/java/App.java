@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class App
@@ -32,11 +30,11 @@ public class App
         }
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        List<Record> records = new LinkedList<Record>();
         try {
             String line;
             int commonCounter = 0;
             int badCounter = 0;
-            List<Record> records = new LinkedList<Record>();
             while ((line = reader.readLine()) != null) {
                 commonCounter++;
                 Pattern pattern = Pattern.compile(" ");
@@ -55,6 +53,12 @@ public class App
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Collections.sort(records, new Comparator<Record>() {
+            public int compare(Record r1, Record r2) {
+                return r1.getStartTime().compareTo(r2.getStartTime());
+            }
+        });
     }
 
     private static GregorianCalendar convertToCalendar(String piece) {
