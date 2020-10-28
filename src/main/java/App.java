@@ -9,25 +9,9 @@ import java.util.regex.Pattern;
 
 public class App
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        Options options = new Options();
-        options.addOption("u",
-                "access",
-                true,
-                "Минимально допустимый уровень доступности (проценты. Например, \"99.9\")");
-        options.addRequiredOption("t",
-                "time",
-                true,
-                "Приемлемое время ответа (миллисекунды. Например, \"45\")");
-
-        CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = null;
-        try {
-            cmd = parser.parse(options, args);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        AppOptions options = new AppOptions(args);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         List<Record> records = new LinkedList<Record>();
@@ -42,9 +26,9 @@ public class App
                 GregorianCalendar startTime = convertToCalendar(words[3]);
                 if (isNotAccessible(words[8],
                         Double.parseDouble(words[10]),
-                        Double.parseDouble(cmd.getOptionValue("t")))) badCounter++;
+                        options.getTime())) badCounter++;
                 double accessible = ((double) badCounter / commonCounter) * 100;
-                if (accessible < Double.parseDouble(cmd.getOptionValue("u"))) {
+                if (accessible < options.getAccessible()) {
                     records.add(new Record(accessible, startTime, convertToCalendar(words[3])));
                     commonCounter = 0;
                     badCounter = 0;
