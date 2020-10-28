@@ -59,6 +59,19 @@ public class App
                 return r1.getStartTime().compareTo(r2.getStartTime());
             }
         });
+
+        for (Record record :
+                records) {
+            String str = String.format("%d.%d.%d - %d.%d.%d : %d",
+                    record.getStartTime().get(Calendar.HOUR),
+                    record.getStartTime().get(Calendar.MINUTE),
+                    record.getStartTime().get(Calendar.SECOND),
+                    record.getFinishTime().get(Calendar.HOUR),
+                    record.getFinishTime().get(Calendar.MINUTE),
+                    record.getFinishTime().get(Calendar.SECOND),
+                    record.getAccessible());
+            System.out.println(str);
+        }
     }
 
     private static GregorianCalendar convertToCalendar(String piece) {

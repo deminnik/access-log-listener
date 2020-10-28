@@ -14,4 +14,12 @@ class Record {
     public Calendar getStartTime() {
         return this.startTime;
     }
+
+    public Calendar getFinishTime() {
+        return this.finishTime;
+    }
+
+    public double getAccessible() {
+        return this.accessible;
+    }
 }
