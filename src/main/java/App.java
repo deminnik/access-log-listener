@@ -41,13 +41,16 @@ public class App
                 commonCounter++;
                 Pattern pattern = Pattern.compile(" ");
                 String[] words = pattern.split(line);
-                GregorianCalendar calendar = convertToCalendar(words[3]);
-                System.out.println(calendar);
+                GregorianCalendar startTime = convertToCalendar(words[3]);
                 if (isNotAccessible(words[8],
                         Double.parseDouble(words[10]),
                         Double.parseDouble(cmd.getOptionValue("t")))) badCounter++;
                 double accessible = ((double) badCounter / commonCounter) * 100;
-                if (accessible < Double.parseDouble(cmd.getOptionValue("u"))) records.add(new Record(accessible));
+                if (accessible < Double.parseDouble(cmd.getOptionValue("u"))) {
+                    records.add(new Record(accessible, startTime, convertToCalendar(words[3])));
+                    commonCounter = 0;
+                    badCounter = 0;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
