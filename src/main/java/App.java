@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -40,6 +41,8 @@ public class App
                 commonCounter++;
                 Pattern pattern = Pattern.compile(" ");
                 String[] words = pattern.split(line);
+                GregorianCalendar calendar = convertToCalendar(words[3]);
+                System.out.println(calendar);
                 if (isNotAccessible(words[8],
                         Double.parseDouble(words[10]),
                         Double.parseDouble(cmd.getOptionValue("t")))) badCounter++;
@@ -49,6 +52,26 @@ public class App
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static GregorianCalendar convertToCalendar(String piece) {
+        piece = piece.replaceFirst("\\[", "");
+
+        Pattern pattern = Pattern.compile(":");
+        String[] time = pattern.split(piece);
+
+        int hours = Integer.parseInt(time[1]);
+        int minutes = Integer.parseInt(time[2]);
+        int seconds = Integer.parseInt(time[3]);
+
+        pattern = Pattern.compile("/");
+        String[] date = pattern.split(time[0]);
+
+        int day = Integer.parseInt(date[0]);
+        int month = Integer.parseInt(date[1]);
+        int year = Integer.parseInt(date[2]);
+
+        return new GregorianCalendar(year, month, day, hours, minutes, seconds);
     }
 
     private static boolean isNotAccessible(String code, double time, double minTime) {
