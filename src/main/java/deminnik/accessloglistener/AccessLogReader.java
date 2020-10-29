@@ -24,7 +24,7 @@ class AccessLogReader {
                         Double.parseDouble(words[10]),
                         options.getTime())) badCounter++;
                 double accessible = ((double) badCounter / commonCounter) * 100;
-                if (accessible < options.getAccessible()) {
+                if (accessible < options.getAccessible() && badCounter != 0) {
                     records.add(new Record(accessible, startTime, convertToCalendar(words[3])));
                     commonCounter = 0;
                     badCounter = 0;
