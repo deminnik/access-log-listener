@@ -1,3 +1,5 @@
+package deminnik.accessloglistener;
+
 import org.apache.commons.cli.*;
 
 class AppOptions {
